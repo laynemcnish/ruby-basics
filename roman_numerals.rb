@@ -5,26 +5,51 @@
 
 #Define roman numeral class
 
-Roman_Numeral = {
-  1 => "I",
-  4 => "IV",
-  5 => "V",
-  9 => "IX",
-  10 => "X",
-  40 => "XL",
-  50 => "L",
-  90 => "XC",
-  100 => "C",
-  400 => "CD",
-  500 => "D",
-  900 => "CM",
-  1000 => "M",
-}
+@roman_numeral = [
+  ["I" , 1],
+  ["IV" , 4],
+  ["V" , 5],
+  ["IV" , 9],
+  ["X" , 10],
+  ["XL", 40],
+  ["L" , 50],
+  ["XC" , 90],
+  ["C" , 100],
+  ["CD" , 400],
+  ["D" , 500],
+  ["CM" , 900],
+  ["M" , 1000]
+]
 
-#give equation to convert
-#
-# Write the roman numeral n that you found and subtract its value v from x:
-# x = x - v
-# Repeat stages 1 and 2 until you get zero result of x.
+@roman =%r{^[CDILMVX]*$}
+@arabic =%r{^[0-9]*$}
 
-#puts the answer
+def toRoman(num)
+  reply = ""
+  for key, value in @roman_numeral
+    count, num = num.divmod(value)
+    reply << (key * count)
+  end
+  reply
+  end
+
+def toArabic(rom)
+  reply = 0
+  for key, value in @roman_numeral
+    while rom.index(key) == 0
+      reply += value
+      rom.slice!(key)
+    end
+  end
+  reply
+end
+
+$stdin.each do |line|
+  case line
+    when @roman
+      puts toArabic(line)
+    when @arabic
+      puts toRoman(line.to_i)
+  end
+end
+break
