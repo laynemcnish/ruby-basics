@@ -7,7 +7,6 @@
 
 puts "To find out their birthday & age, please input a first or last name."
 persons_name = gets.chomp
-first_name, last_name = persons_name.split
 
 file = File.open('birthday_data.csv', "r")
 
